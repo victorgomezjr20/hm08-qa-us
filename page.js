@@ -4,11 +4,27 @@ module.exports = {
     toField: '#to',
     phoneNumberField: '#phone',
     codeField: '#code',
+    cardNumber:'#number',
+    cardCode: '#code.card-input',
+    messageInput: '#comment',
     // Buttons
     callATaxiButton: 'button=Call a taxi',
     phoneNumberButton: '//div[starts-with(text(), "Phone number")]',
     nextButton: 'button=Next',
     confirmButton: 'button=Confirm',
+    supportiveCarType: 'div=Supportive',
+    paymentMethodButton: '.pp-text',
+    addCardButton: 'div=Add card',
+    linkCardButton: 'button=Link',
+    closePaymentButton : '.payment-picker .close-button',
+    BlanketHandkerchiefsButton : '.slider',
+    BlanketHandkerchiefsSwitch: '.switch-input',
+    iceCreamCounter: '.counter-plus',
+    iceCreamCounterDisabled: '.counter-plus.disabled',
+    submitCarOrder: '.smart-button',
+    //Misc
+    addCardOffClick: '.plc',
+    cardPaymentMethodIcon : 'img[alt="card"]',
     // Modals
     phoneNumberModal: '.modal',
     // Functions
@@ -48,4 +64,50 @@ module.exports = {
         await codeField.setValue(code)
         await $(this.confirmButton).click()
     },
+    addPaymentMethodCard: async function () {
+        const paymentMethodButton = await $(this.paymentMethodButton);
+        await paymentMethodButton.waitForDisplayed();
+        await paymentMethodButton.click();
+        
+        //click add card button
+        const addCardButton = await $(this.addCardButton);
+        await addCardButton.waitForDisplayed();
+        await addCardButton.click();
+        
+        //add card number
+        const cardNumber = await $(this.cardNumber);
+        await cardNumber.waitForDisplayed();
+        await cardNumber.setValue(1234567812345678);
+
+        //add card code
+        const cardCode = await $(this.cardCode);
+        await cardCode.waitForDisplayed();
+        await cardCode.setValue(88);
+
+        //out of focus click to activate link button
+        const addCardOffClick = await $(this.addCardOffClick);
+        await addCardOffClick.waitForDisplayed();
+        await addCardOffClick.click();
+
+        //link card function
+        const linkCardButton = await $(this.linkCardButton);
+        await linkCardButton.waitForDisplayed();
+        await linkCardButton.click();
+
+        //close button
+        const closePaymentButton = await $(this.closePaymentButton);
+        await closePaymentButton.waitForDisplayed();
+        await closePaymentButton.click();
+
+
+    },
+    addIceCreamOrder: async function() {
+        const iceCreamCounter = await $(this.iceCreamCounter);
+        await iceCreamCounter.waitForDisplayed();
+        await iceCreamCounter.click();
+        await iceCreamCounter.click();
+        const iceCreamCounterDisabled = await $(this.iceCreamCounterDisabled);
+        await iceCreamCounterDisabled.waitForDisplayed();
+        
+       }
 };
