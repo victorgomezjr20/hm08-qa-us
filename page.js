@@ -7,6 +7,8 @@ module.exports = {
     cardNumber:'#number',
     cardCode: '#code.card-input',
     messageInput: '#comment',
+    Icecreamnumber: '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[2]',
+    driverArriveTime: '//*[@id="root"]/div/div[5]/div[2]/div[1]/div/div[1]',
     // Buttons
     callATaxiButton: 'button=Call a taxi',
     phoneNumberButton: '//div[starts-with(text(), "Phone number")]',

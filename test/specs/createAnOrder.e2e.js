@@ -72,24 +72,39 @@ describe('Create an Order', () => {
         await expect($(page.BlanketHandkerchiefsSwitch).toBeChecked());
     })
 
-    it('Should Order 2 Ice Creams ', async () => {
+    it('should order 2 ice creams ', async () => {
         //Order 2 ice creams
         await browser.url(`/`)
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
 
         await page.addIceCreamOrder();
-        await expect($(page.iceCreamCounterDisabled).toBeSelected());
+        await expect($(page.Icecreamnumber)).toHaveText('2');
     })
 
-    it('Should Order the Car ', async () => {
+    it('should order the car ', async () => {
         //submit car order
         await browser.url(`/`)
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
-        
+        const supportiveCarType = await $(page.supportiveCarType);
+        await supportiveCarType.waitForDisplayed();
+        await supportiveCarType.click();
+        const phoneNumber = helper.getPhoneNumber("+1");
+        await page.submitPhoneNumber(phoneNumber);
+        await page.addPaymentMethodCard();
+        const messageInput = await $(page.messageInput);
+        await messageInput.waitForDisplayed();
+        await messageInput.setValue("Hello");
+        const BlanketHandkerchiefsButton = await $(page.BlanketHandkerchiefsButton);
+        await BlanketHandkerchiefsButton.waitForDisplayed();
+        await BlanketHandkerchiefsButton.click();
+        await page.addIceCreamOrder();
         const submitCarOrder = await $(page.submitCarOrder);
         await submitCarOrder.waitForDisplayed();
         await submitCarOrder.click();
         await expect(submitCarOrder).toBeEnabled();
+        await browser.pause(40000);
+        const driverArriveTime = await $(page.driverArriveTime);
+        await expect(driverArriveTime).toBeExisting();
     })
 
 })
